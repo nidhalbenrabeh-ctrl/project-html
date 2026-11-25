@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dossier Léa — Escape Game Cyberharcèlement</title>
+  <style>
+    :root {
+      --bg-dark: #0b1120;
+      --panel-bg: #131c31;
+      --panel-border: #253352;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --danger: #f43f5e;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --phone-bg: #0f172a;
+      --phone-card: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #172554, var(--bg-dark) 60%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: rgba(244, 63, 94, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .header-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.9rem;
+    }
+
+    .stat-pill {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+    }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn-warning {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+    .btn-warning:hover {
+      background: rgba(245, 158, 11, 0.25);
+    }
+
+    /* Mobile switcher */
+    .mobile-tabs {
+      display: none;
+      background: var(--panel-bg);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 8px;
+      gap: 8px;
+    }
+    .mobile-tab-btn {
+      flex: 1;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .mobile-tab-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    /* Main Workspace */
+    .workspace {
+      flex: 1;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 390px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Smartphone Frame */
+    .phone-wrapper {
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 84px;
+    }
+
+    .phone-frame {
+      width: 360px;
+      height: 700px;
+      background: #020617;
+      border-radius: 44px;
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 0 0 2px #334155;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: linear-gradient(160deg, #0f172a, #1e1b4b);
+      border-radius: 34px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .phone-statusbar {
+      height: 32px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 20px;
+      background: #020617;
+      border-radius: 12px;
+      z-index: 15;
+    }
+
+    .phone-content {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .phone-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .phone-content::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+
+    .phone-navbar {
+      height: 46px;
+      background: rgba(2, 6, 23, 0.85);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-btn:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Lock Screen & PIN Pads */
+    .lock-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 36px 24px 24px;
+      background: linear-gradient(180deg, rgba(15,23,42,0.7), rgba(30,27,75,0.95));
+      text-align: center;
+    }
+
+    .lock-time {
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+    .lock-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .lock-notif {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 10px 14px;
+      width: 100%;
+      text-align: left;
+      font-size: 0.8rem;
+      border-left: 3px solid var(--danger);
+      margin-bottom: 10px;
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 14px;
+      margin: 14px 0 8px;
+      justify-content: center;
+    }
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      transition: all 0.15s;
+    }
+    .pin-dot.filled {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .pin-hint {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 62px);
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .key-btn {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .key-btn:hover { background: rgba(255, 255, 255, 0.2); }
+    .key-btn:active { transform: scale(0.92); }
+    .key-btn.key-action { font-size: 0.9rem; background: transparent; border: none; color: var(--text-muted); }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .shake { animation: shake 0.35s ease; }
+
+    /* Home Screen Apps */
+    .home-screen {
+      flex: 1;
+      padding: 24px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .widget-box {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 18px;
+    }
+    .widget-box small { color: var(--text-muted); display: block; margin-bottom: 4px; }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 12px;
+    }
+
+    .app-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .app-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      transition: transform 0.15s;
+      position: relative;
+    }
+    .app-item:hover .app-icon { transform: scale(1.06); }
+
+    .app-lock-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #0f172a;
+      border: 1px solid var(--warning);
+      color: var(--warning);
+      font-size: 0.7rem;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-notif-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-label {
+      font-size: 0.75rem;
+      color: #e2e8f0;
+      text-align: center;
+    }
+
+    /* Inside Apps */
+    .app-header {
+      padding: 12px 14px;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .app-header h2 {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .back-link {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .app-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-item {
+      background: var(--phone-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .card-item:hover { background: #26334a; }
+
+    .chat-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .chat-name { font-weight: 700; font-size: 0.9rem; }
+    .chat-time { font-size: 0.72rem; color: var(--text-muted); }
+    .chat-preview { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Chat Bubbles */
+    .bubble {
+      max-width: 85%;
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 0.83rem;
+      line-height: 1.4;
+    }
+    .bubble-in {
+      background: #273449;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .bubble-out {
+      background: #0284c7;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble-deleted {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px dashed rgba(244, 63, 94, 0.5);
+      color: #fda4af;
+      align-self: flex-start;
+      font-style: italic;
+      font-size: 0.78rem;
+    }
+
+    /* Evidence Collect Button inside phone */
+    .collect-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .collect-btn:hover { background: rgba(56, 189, 248, 0.3); }
+    .collect-btn.collected {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--success);
+      color: #6ee7b7;
+      cursor: default;
+    }
+
+    /* Gallery Grid */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .photo-thumb {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s;
+    }
+    .photo-thumb:hover { transform: scale(1.02); }
+    .photo-visual {
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    /* PulseGram */
+    .pg-post {
+      background: #1a2438;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pg-header {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .pg-img {
+      background: linear-gradient(135deg, #271a38, #1e1b4b);
+      padding: 18px 12px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .pg-comments {
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Right Side Investigation Board */
+    .board {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .briefing-text {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+    }
+
+    .locker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .locker-item {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 14px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .locker-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .locker-item h4 {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .locker-item p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Evidence List */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+
+    .evidence-slot {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px dashed var(--panel-border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      transition: all 0.25s;
+    }
+    .evidence-slot.found {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: var(--text-main);
+    }
+    .evidence-slot strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #6ee7b7;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      border: 1px solid var(--accent);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      z-index: 100;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    }
+
+    .modal-box h2 {
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+    }
+
+    .quiz-group {
+      margin-bottom: 16px;
+    }
+    .quiz-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+    .quiz-option {
+      display: block;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--panel-border);
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+    .quiz-option:hover { border-color: var(--accent); }
+    .quiz-option input { margin-right: 8px; }
+
+    .help-box {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .help-box h3 { color: var(--accent); margin-bottom: 8px; font-size: 1rem; }
+
+    .input-password {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #0f172a;
+      color: #fff;
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    .tab-pills {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .tab-pill {
+      flex: 1;
+      padding: 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .tab-pill.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 920px) {
+      .workspace {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .mobile-tabs {
+        display: flex;
+      }
+      .phone-wrapper {
+        position: static;
+      }
+      .mobile-hide {
+        display: none !important;
+      }
+      .phone-frame {
+        width: 100%;
+        max-width: 360px;
+        height: 650px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span class="brand-badge">Enquête Numérique</span>
+      <h1>Dossier Léa — Comprendre le silence</h1>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill">⏱️ <span id="timer">00:00</span></div>
+      <div class="stat-pill">🔍 Preuves : <span id="evidence-count">0</span>/6</div>
+      <button class="btn btn-warning" onclick="openHintModal()">💡 Indice</button>
+      <button class="btn btn-primary" id="resolve-btn" disabled onclick="openResolveModal()">⚖️ Clore le dossier</button>
+    </div>
+  </header>
+
+  <div class="mobile-tabs">
+    <button class="mobile-tab-btn active" onclick="switchMobileTab('phone', this)">📱 Téléphone</button>
+    <button class="mobile-tab-btn" onclick="switchMobileTab('board', this)">📁 Casier & Preuves (<span id="mobile-ev-count">0</span>/6)</button>
+  </div>
+
+  <main class="workspace">
+    <!-- LEFT: SMARTPHONE -->
+    <section class="phone-wrapper" id="phone-panel">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-statusbar">
+            <span>14:22</span>
+            <span>📶 4G · 🪫 18%</span>
+          </div>
+
+          <div class="phone-content" id="phone-content">
+            <!-- Rendered dynamically by JS -->
+          </div>
+
+          <div class="phone-navbar" id="phone-navbar" style="display: none;">
+            <button class="nav-btn" title="Retour" onclick="goBackPhone()">◀</button>
+            <button class="nav-btn" title="Accueil" onclick="goHomePhone()">⬤</button>
+            <button class="nav-btn" title="Verrouiller" onclick="lockPhone()">🔒</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: INVESTIGATION BOARD -->
+    <section class="board mobile-hide" id="board-panel">
+      <div class="panel">
+        <div class="panel-title">
+          <span>📋 Contexte de l'enquête</span>
+          <span style="font-size: 0.78rem; color: var(--accent);">Mission : Réunir les preuves</span>
+        </div>
+        <p class="briefing-text">
+          <strong>Léa Moreau</strong> (Seconde B) n'est pas revenue au lycée depuis <strong>4 jours</strong>. Elle dit à ses parents qu'elle a des migraines et refuse d'expliquer pourquoi elle ne veut plus y aller.
+          <br><br>
+          Ce matin, la vie scolaire a récupéré ses affaires dans son casier, et ses parents ont trouvé son téléphone éteint au fond de son sac. Plusieurs applications sont protégées et des messages ont été effacés.
+          <strong>Votre objectif :</strong> contourner les sécurités en croisant les indices, rassembler <strong>6 preuves</strong> et comprendre ce qui s'est passé.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>🎒 Affaires récupérées dans son casier</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Indices matériels</span>
+        </div>
+        <div class="locker-grid">
+          <div class="locker-item">
+            <h4>🐱 Carte vétérinaire / photo</h4>
+            <p>Glissée dans son agenda : une photo de son chat avec la date d'adoption notée au dos : <em>« Oslo · <strong>23 juin</strong> »</em>.</p>
+          </div>
+          <div class="locker-item">
+            <h4>🪪 Carte de lycéenne</h4>
+            <p><strong>Nom :</strong> Léa Moreau<br><strong>Classe :</strong> Seconde B<br><strong>Casier :</strong> <code style="color:#38bdf8;font-weight:700;">0412</code></p>
+          </div>
+          <div class="locker-item">
+            <h4>📄 Feuille de groupe (SVT)</h4>
+            <p>Le nom de Chloé a été barré au stylo. Une remarque du professeur indique : <em>« Passage individuel validé suite au changement de binôme »</em>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>📁 Preuves réunies</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Cliquez sur « Collecter » dans les applis</span>
+        </div>
+        <div class="evidence-grid" id="evidence-board">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- MODAL: HINTS -->
+  <div class="modal-backdrop" id="hint-modal">
+    <div class="modal-box">
+      <h2>💡 Indices progressifs</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">
+        Bloqué(e) devant un verrou ? Ne révélez que l'étape qui vous bloque :
+      </p>
+      <div id="hints-container" style="display:flex; flex-direction:column; gap:10px;"></div>
+      <div style="margin-top: 18px; text-align:right;">
+        <button class="btn btn-outline" onclick="closeModal('hint-modal')">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: RESOLUTION -->
+  <div class="modal-backdrop" id="resolve-modal">
+    <div class="modal-box" id="resolve-box">
+      <!-- Rendered dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // ================= STATE =================
+    const state = {
+      unlockedPhone: false,
+      unlockedAlbum: false,
+      unlockedPulse: false,
+      unlockedTrash: false,
+      unlockedJournal: false,
+      restoredFiles: { f1: false, f2: false, f3: false },
+      currentView: 'lock',
+      viewParams: {},
+      historyStack: [],
+      pinBuffer: '',
+      pinTarget: 'phone',
+      evidences: new Set(),
+      seconds: 0,
+      finished: false
+    };
+
+    const EVIDENCE_CATALOG = [
+      { id: 'ev1', title: '1. Propagation dans la classe', desc: 'Lucas confirme qu\'une publication humiliante circule sur le groupe de 2nde B.' },
+      { id: 'ev2', title: '2. Pressions pour la faire taire', desc: 'Le 06 48 92 71 09 menace de diffuser d\'autres captures si elle alerte le CPE.' },
+      { id: 'ev3', title: '3. Complicité Chloé / Enzo', desc: 'Capture de conversation : Chloé transmet le vocal privé de Léa et demande à Enzo de le publier.' },
+      { id: 'ev4', title: '4. Exposition publique (@confessions_vh)', desc: 'Publication anonyme moqueuse vue et commentée par d\'autres élèves du lycée.' },
+      { id: 'ev5', title: '5. Chantage à la réputation', desc: 'Message supprimé : le compte @confessions_vh menace de publier ses photos si elle se plaint aux profs.' },
+      { id: 'ev6', title: '6. L\'élément déclencheur', desc: 'Note privée : Léa a coupé les ponts après que Chloé a trahi sa confiance, déclenchant les représailles.' }
+    ];
+
+    const HINTS = [
+      { title: "1. Déverrouiller le téléphone", text: "L'indice mentionne la date d'adoption de son chat Oslo (JJMM). Regardez dans son casier : 23 juin → Code : 2306." },
+      { title: "2. Ouvrir l'Album Masqué (Galerie)", text: "Lisez la note « Mémo ». Elle renvoie à l'année de son prix au concours d'illustration visible dans la Galerie publique → Code : 2024." },
+      { title: "3. Débloquer PulseGram", text: "Le « Mémo » dans Notes indique les 4 derniers chiffres du numéro inconnu qui lui a envoyé un SMS lundi (06 48 92 71 09) → Code : 7109." },
+      { title: "4. Débloquer la Corbeille", text: "La Corbeille demande son numéro de casier à 4 chiffres. Il est inscrit sur sa carte de lycéenne → Code : 0412." },
+      { title: "5. Lire la note privée (Notes)", text: "Restaurez le brouillon supprimé dans la Corbeille : l'objet qu'elle met sur ses oreilles dans le bus pour s'isoler est le mot « casque »." }
+    ];
+
+    // ================= TIMER =================
+    setInterval(() => {
+      if (!state.finished) {
+        state.seconds++;
+        const m = String(Math.floor(state.seconds / 60)).padStart(2, '0');
+        const s = String(state.seconds % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `${m}:${s}`;
+      }
+    }, 1000);
+
+    // ================= HELPERS =================
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    function collectEvidence(id) {
+      if (!state.evidences.has(id)) {
+        state.evidences.add(id);
+        renderEvidenceBoard();
+        const ev = EVIDENCE_CATALOG.find(e => e.id === id);
+        showToast(`📌 Preuve collectée (${state.evidences.size}/6) : ${ev.title}`);
+        renderPhone();
+      }
+    }
+
+    function renderEvidenceBoard() {
+      const container = document.getElementById('evidence-board');
+      document.getElementById('evidence-count').textContent = state.evidences.size;
+      document.getElementById('mobile-ev-count').textContent = state.evidences.size;
+
+      const resolveBtn = document.getElementById('resolve-btn');
+      resolveBtn.disabled = state.evidences.size < 6;
+
+      container.innerHTML = EVIDENCE_CATALOG.map(ev => {
+        const found = state.evidences.has(ev.id);
+        return `
+          <div class="evidence-slot ${found ? 'found' : ''}">
+            <strong>${found ? '✅ ' + ev.title : '🔒 ' + ev.title}</strong>
+            <span>${found ? ev.desc : 'Élément non encore identifié dans le téléphone.'}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function evidenceBtnHTML(id, label = "Collecter comme preuve") {
+      const collected = state.evidences.has(id);
+      return `<button class="collect-btn ${collected ? 'collected' : ''}" onclick="collectEvidence('${id}')">
+        ${collected ? '✓ Ajoutée au dossier' : '📌 ' + label}
+      </button>`;
+    }
+
+    function navigate(view, params = {}, pushHistory = true) {
+      if (pushHistory && state.currentView !== 'lock' && state.currentView !== 'pin') {
+        state.historyStack.push({ view: state.currentView, params: state.viewParams });
+      }
+      state.currentView = view;
+      state.viewParams = params;
+      renderPhone();
+    }
+
+    function goBackPhone() {
+      if (state.historyStack.length > 0) {
+        const prev = state.historyStack.pop();
+        state.currentView = prev.view;
+        state.viewParams = prev.params;
+        renderPhone();
+      } else if (state.unlockedPhone) {
+        navigate('home', {}, false);
+      }
+    }
+
+    function goHomePhone() {
+      if (!state.unlockedPhone) return;
+      state.historyStack = [];
+      navigate('home', {}, false);
+    }
+
+    function lockPhone() {
+      state.unlockedPhone = false;
+      state.pinBuffer = '';
+      state.pinTarget = 'phone';
+      state.historyStack = [];
+      navigate('lock', {}, false);
+    }
+
+    function switchMobileTab(tab, btn) {
+      document.querySelectorAll('.mobile-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const phonePanel = document.getElementById('phone-panel');
+      const boardPanel = document.getElementById('board-panel');
+      if (tab === 'phone') {
+        phonePanel.classList.remove('mobile-hide');
+        boardPanel.classList.add('mobile-hide');
+      } else {
+        phonePanel.classList.add('mobile-hide');
+        boardPanel.classList.remove('mobile-hide');
+      }
+    }
+
+    // ================= PIN KEYPAD LOGIC =================
+    const PIN_CONFIG = {
+      phone: { code: '2306', title: 'Déverrouiller le téléphone', hint: 'Date adoption Oslo (JJMM)', onUnlock: () => { state.unlockedPhone = true; navigate('home', {}, false); showToast('🔓 Téléphone déverrouillé'); } },
+      album: { code: '2024', title: 'Album Masqué', hint: 'Année du concours dans la Galerie', onUnlock: () => { state.unlockedAlbum = true; navigate('album', {}, false); showToast('🔓 Album Masqué déverrouillé'); } },
+      pulse: { code: '7109', title: 'PulseGram verrouillé', hint: '4 derniers chiffres du numéro inconnu', onUnlock: () => { state.unlockedPulse = true; navigate('pulsegram', { tab: 'feed' }, false); showToast('🔓 PulseGram déverrouillé'); } },
+      trash: { code: '0412', title: 'Corbeille sécurisée', hint: 'N° de casier (4 chiffres)', onUnlock: () => { state.unlockedTrash = true; navigate('trash', {}, false); showToast('🔓 Corbeille déverrouillée'); } }
+    };
+
+    function openPinScreen(target) {
+      state.pinTarget = target;
+      state.pinBuffer = '';
+      navigate('pin', {}, true);
+    }
+
+    function pressKey(num) {
+      if (state.pinBuffer.length >= 4) return;
+      state.pinBuffer += num;
+      updatePinDots();
+      if (state.pinBuffer.length === 4) {
+        const cfg = PIN_CONFIG[state.pinTarget];
+        setTimeout(() => {
+          if (state.pinBuffer === cfg.code) {
+            state.pinBuffer = '';
+            cfg.onUnlock();
+          } else {
+            const dots = document.getElementById('pin-dots');
+            if (dots) dots.classList.add('shake');
+            showToast('❌ Code incorrect');
+            setTimeout(() => {
+              state.pinBuffer = '';
+              updatePinDots();
+            }, 380);
+          }
+        }, 120);
+      }
+    }
+
+    function backspacePin() {
+      state.pinBuffer = state.pinBuffer.slice(0, -1);
+      updatePinDots();
+    }
+
+    function updatePinDots() {
+      const dots = document.querySelectorAll('#pin-dots .pin-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('filled', idx < state.pinBuffer.length);
+      });
+    }
+
+    function renderPinPad(target) {
+      const cfg = PIN_CONFIG[target];
+      const isLock = target === 'phone';
+      return `
+        <div class="lock-screen">
+          <div style="width:100%;">
+            ${isLock ? `
+              <div class="lock-time">14:22</div>
+              <div class="lock-date">Jeudi 19 Novembre</div>
+              <div class="lock-notif">
+                <strong>💬 Maman (il y a 1h)</strong><br>
+                Léa, la vie scolaire vient encore de m'appeler pour ton absence. Ce soir on en discute vraiment.
+              </div>
+            ` : `
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <button class="back-link" onclick="goBackPhone()">◀ Retour</button>
+                <span style="font-size:0.85rem; color:var(--warning);">🔒 Verrouillé</span>
+              </div>
+              <h3 style="margin-bottom:6px;">${cfg.title}</h3>
+            `}
+          </div>
+
+          <div style="width:100%;">
+            <div class="pin-hint">Indice : ${cfg.hint}</div>
+            <div class="pin-dots" id="pin-dots">
+              <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+            </div>
+          </div>
+
+          <div class="keypad">
+            ${[1,2,3,4,5,6,7,8,9].map(n => `<button class="key-btn" onclick="pressKey('${n}')">${n}</button>`).join('')}
+            <button class="key-btn key-action" onclick="state.pinBuffer=''; updatePinDots();">Effacer</button>
+            <button class="key-btn" onclick="pressKey('0')">0</button>
+            <button class="key-btn key-action" onclick="backspacePin()">⌫</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // ================= RENDER PHONE VIEWS =================
+    function renderPhone() {
+      const container = document.getElementById('phone-content');
+      const navbar = document.getElementById('phone-navbar');
+      navbar.style.display = state.unlockedPhone ? 'flex' : 'none';
+
+      switch (state.currentView) {
+        case 'lock':
+          state.pinTarget = 'phone';
+          container.innerHTML = renderPinPad('phone');
+          break;
+        case 'pin':
+          container.innerHTML = renderPinPad(state.pinTarget);
+          break;
+        case 'home':
+          container.innerHTML = `
+            <div class="home-screen">
+              <div>
+                <div class="widget-box">
+                  <small>Lycée Victor Hugo · Seconde B</small>
+                  <div style="font-size:0.95rem; font-weight:600;">Téléphone de Léa</div>
+                  <div style="font-size:0.78rem; color:#fda4af; margin-top:4px;">3 messages non lus · Temps d'écran limité</div>
+                </div>
+
+                <div class="app-grid">
+                  <div class="app-item" onclick="navigate('messages')">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#22c55e,#15803d);">
+                      💬
+                      <span class="app-notif-badge">3</span>
+                    </div>
+                    <span class="app-label">Messages</span>
+                  </div>
+
+                  <div class="app-item" onclick="navigate('gallery')">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#ec4899,#be185d);">🖼️</div>
+                    <span class="app-label">Galerie</span>
+                  </div>
+
+                  <div class="app-item" onclick="navigate('notes')">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#f59e0b,#b45309);">📝</div>
+                    <span class="app-label">Notes</span>
+                  </div>
+
+                  <div class="app-item" onclick="${state.unlockedPulse ? "navigate('pulsegram',{tab:'feed'})" : "openPinScreen('pulse')"}">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#a855f7,#6366f1);">
+                      📸
+                      ${state.unlockedPulse ? '' : '<span class="app-lock-badge">🔒</span>'}
+                    </div>
+                    <span class="app-label">PulseGram</span>
+                  </div>
+
+                  <div class="app-item" onclick="${state.unlockedTrash ? "navigate('trash')" : "openPinScreen('trash')"}">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#64748b,#334155);">
+                      🗑️
+                      ${state.unlockedTrash ? '' : '<span class="app-lock-badge">🔒</span>'}
+                    </div>
+                    <span class="app-label">Corbeille</span>
+                  </div>
+
+                  <div class="app-item" onclick="navigate('browser')">
+                    <div class="app-icon" style="background:linear-gradient(135deg,#0ea5e9,#0369a1);">🌐</div>
+                    <span class="app-label">Navigateur</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="text-align:center; font-size:0.75rem; color:var(--text-muted); padding-bottom:6px;">
+                Explorez les applis et collectez les 6 preuves
+              </div>
+            </div>
+          `;
+          break;
+
+        // ---------- MESSAGES ----------
+        case 'messages':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>💬 Messages</h2>
+              <button class="back-link" onclick="goHomePhone()">Accueil</button>
+            </div>
+            <div class="app-body">
+              <div class="card-item" onclick="navigate('chat', {id:'maman'})">
+                <div class="chat-row"><span class="chat-name">Maman</span><span class="chat-time">13:15</span></div>
+                <div class="chat-preview">Léa, la vie scolaire vient encore de m'appeler...</div>
+              </div>
+              <div class="card-item" onclick="navigate('chat', {id:'lucas'})">
+                <div class="chat-row"><span class="chat-name">Lucas (2nde B)</span><span class="chat-time">Hier</span></div>
+                <div class="chat-preview">Tout le monde en parle sur le groupe à cause de la publication...</div>
+              </div>
+              <div class="card-item" onclick="navigate('chat', {id:'inconnu'})" style="border-color:rgba(244,63,94,0.4);">
+                <div class="chat-row"><span class="chat-name" style="color:#fda4af;">06 48 92 71 09</span><span class="chat-time">Lundi</span></div>
+                <div class="chat-preview">On sait que tu as écrit au CPE hier. Ne t'amuse pas...</div>
+              </div>
+              <div class="card-item" onclick="navigate('chat', {id:'chloe'})">
+                <div class="chat-row"><span class="chat-name">Chloé</span><span class="chat-time">Ven.</span></div>
+                <div class="chat-preview">Très bien, reste seule dans ton coin si tu préfères...</div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'chat':
+          container.innerHTML = renderChat(state.viewParams.id);
+          break;
+
+        // ---------- GALLERY ----------
+        case 'gallery':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>🖼️ Galerie</h2>
+              <button class="back-link" onclick="goHomePhone()">Accueil</button>
+            </div>
+            <div class="app-body">
+              <div class="card-item" style="background:rgba(245,158,11,0.12); border-color:rgba(245,158,11,0.4); display:flex; justify-content:space-between; align-items:center;"
+                   onclick="${state.unlockedAlbum ? "navigate('album')" : "openPinScreen('album')"}">
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem;">${state.unlockedAlbum ? '🔓 Album Masqué' : '🔒 Masquées (Protégé)'}</div>
+                  <div style="font-size:0.76rem; color:var(--text-muted);">Captures enregistrées par Léa</div>
+                </div>
+                <span>▶</span>
+              </div>
+
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Récents (3)</div>
+              <div class="photo-grid">
+                <div class="photo-thumb" onclick="navigate('photo', {id:'diplome'})">
+                  <div class="photo-visual" style="background:linear-gradient(135deg,#854d0e,#ca8a04);">🎨</div>
+                  <span style="font-size:0.76rem;">Concours BD</span>
+                </div>
+                <div class="photo-thumb" onclick="navigate('photo', {id:'groupe'})">
+                  <div class="photo-visual" style="background:linear-gradient(135deg,#0f766e,#115e59);">🧑‍🤝‍🧑</div>
+                  <span style="font-size:0.76rem;">Sortie Octobre</span>
+                </div>
+                <div class="photo-thumb" onclick="navigate('photo', {id:'sondage'})">
+                  <div class="photo-visual" style="background:linear-gradient(135deg,#881337,#4c0519);">📱</div>
+                  <span style="font-size:0.76rem;">Capture floue</span>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'photo':
+          container.innerHTML = renderPhotoDetail(state.viewParams.id);
+          break;
+
+        case 'album':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>🔓 Album Masqué</h2>
+              <button class="back-link" onclick="navigate('gallery',{},false)">◀ Galerie</button>
+            </div>
+            <div class="app-body">
+              <div class="card-item" style="cursor:default;">
+                <div style="font-size:0.75rem; color:var(--accent); margin-bottom:6px;">📸 Capture transmise par un contact · Chat Chloé / Enzo</div>
+                <div style="background:#0f172a; padding:10px; border-radius:8px; font-size:0.82rem; line-height:1.45;">
+                  <div style="margin-bottom:8px;">
+                    <strong style="color:#f472b6;">Chloé :</strong> Tiens, voilà l'enregistrement où elle craque. Tu peux le mettre sur <strong>@confessions_vh</strong>, mais ne coupe pas le début sinon on ne la reconnaîtra pas.
+                  </div>
+                  <div>
+                    <strong style="color:#fbbf24;">Enzo :</strong> C'est bon, le montage est prêt. Je le publie à 18h, quand tout le monde est connecté.
+                  </div>
+                </div>
+                ${evidenceBtnHTML('ev3', 'Collecter preuve : Complicité Chloé / Enzo')}
+              </div>
+
+              <div class="card-item" style="cursor:default;">
+                <div style="font-size:0.75rem; color:var(--accent); margin-bottom:6px;">📸 Photo prise en classe (écran verrouillé)</div>
+                <div style="background:#0f172a; padding:10px; border-radius:8px; font-size:0.8rem; color:#cbd5e1;">
+                  Notification aperçue sur le téléphone d'Enzo :<br>
+                  <em>PulseGram · @confessions_vh : 14 nouveaux commentaires</em>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        // ---------- NOTES ----------
+        case 'notes':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>📝 Notes</h2>
+              <button class="back-link" onclick="goHomePhone()">Accueil</button>
+            </div>
+            <div class="app-body">
+              <div class="card-item" style="cursor:default;">
+                <h4 style="font-size:0.9rem; margin-bottom:6px;">🔐 Mémo codes</h4>
+                <p style="font-size:0.8rem; color:#cbd5e1; line-height:1.5;">
+                  • <strong>Album Masqué :</strong> Année du prix au concours d'illustration (voir Galerie).<br>
+                  • <strong>PulseGram :</strong> 4 derniers chiffres du numéro inconnu qui m'a envoyé un SMS lundi.<br>
+                  • <strong>Note privée :</strong> Ce que je mets sur mes oreilles dans le bus (voir brouillon jeté à la Corbeille).
+                </p>
+              </div>
+
+              <div class="card-item" style="cursor:default;">
+                <h4 style="font-size:0.9rem; margin-bottom:6px;">📚 Semaine du 16 nov</h4>
+                <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.45;">
+                  - Maths : DM à rendre vendredi<br>
+                  - SVT : demander au prof à passer seule (validé)
+                </p>
+              </div>
+
+              <div class="card-item" style="border-color:rgba(245,158,11,0.4);" onclick="openJournalPrompt()">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <h4 style="font-size:0.9rem;">${state.unlockedJournal ? '🔓 Note privée' : '🔒 Note privée'}</h4>
+                    <span style="font-size:0.76rem; color:var(--text-muted);">Protégée par mot de passe (1 mot)</span>
+                  </div>
+                  <span>▶</span>
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+
+        case 'journal':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>🔒 Note privée</h2>
+              <button class="back-link" onclick="navigate('notes',{},false)">◀ Notes</button>
+            </div>
+            <div class="app-body">
+              <div class="card-item" style="cursor:default; line-height:1.55; font-size:0.83rem;">
+                <div style="color:var(--text-muted); font-size:0.75rem; margin-bottom:8px;">Mardi — 23h40</div>
+                Je n'en peux plus de faire semblant d'avoir mal au ventre le matin, mais dès que j'approche du portail j'ai la gorge nouée.
+                <br><br>
+                Tout est parti du jour où j'ai dit à <strong>Chloé</strong> que je ne voulais plus lui parler, parce qu'elle avait enregistré et partagé un vocal privé où je lui confiais quelque chose de personnel. Au lieu de s'excuser, elle a retourné la situation contre moi.
+                <br><br>
+                Le lendemain, <strong>Enzo</strong> et elle ont publié un montage de ce vocal sur <strong>@confessions_vh</strong>. Depuis, dans les couloirs, les regards et les moqueries ne s'arrêtent plus. Et quand j'ai voulu prévenir le CPE, j'ai reçu des menaces par SMS d'un numéro inconnu. Je me sens complètement piégée.
+              </div>
+              ${evidenceBtnHTML('ev6', 'Collecter preuve : Élément déclencheur')}
+            </div>
+          `;
+          break;
+
+        // ---------- PULSEGRAM ----------
+        case 'pulsegram':
+          container.innerHTML = renderPulseGram(state.viewParams.tab || 'feed');
+          break;
+
+        // ---------- TRASH ----------
+        case 'trash':
+          container.innerHTML = renderTrash();
+          break;
+
+        // ---------- BROWSER ----------
+        case 'browser':
+          container.innerHTML = `
+            <div class="app-header">
+              <h2>🌐 Historique Web</h2>
+              <button class="back-link" onclick="goHomePhone()">Accueil</button>
+            </div>
+            <div class="app-body">
+              <div style="font-size:0.78rem; color:var(--text-muted);">Recherches récentes :</div>
+              <div class="card-item" style="cursor:default;">
+                <div style="font-weight:600; font-size:0.85rem;">🔍 « changer de lycée en cours d'année dossier »</div>
+                <div style="font-size:0.74rem; color:var(--text-muted);">Il y a 3 jours</div>
+              </div>
+              <div class="card-item" style="cursor:default;">
+                <div style="font-weight:600; font-size:0.85rem;">🔍 « signaler un compte anonyme réseau social »</div>
+                <div style="font-size:0.74rem; color:var(--text-muted);">Il y a 2 jours</div>
+              </div>
+              <div class="card-item" style="cursor:default; border-color:rgba(56,189,248,0.4);">
+                <div style="font-weight:600; font-size:0.85rem; color:var(--accent);">🔍 « 3018 harcèlement scolaire anonyme »</div>
+                <div style="font-size:0.78rem; color:#cbd5e1; margin-top:6px; line-height:1.4;">
+                  <strong>3018.fr :</strong> Numéro national gratuit, anonyme et confidentiel (7j/7 de 9h à 23h) pour les jeunes victimes ou témoins de cyberharcèlement. Permet aussi le retrait rapide de contenus sur les réseaux.
+                </div>
+              </div>
+            </div>
+          `;
+          break;
+      }
+    }
+
+    function renderChat(id) {
+      const chats = {
+        maman: {
+          name: 'Maman',
+          content: `
+            <div class="bubble bubble-in">Léa, je suis au travail, la vie scolaire vient encore de m'appeler pour ton absence en maths. Ça fait quatre jours maintenant...</div>
+            <div class="bubble bubble-out">J'ai encore une migraine ce matin, je suis désolée. Je suis restée couchée.</div>
+            <div class="bubble bubble-in">Ce soir on en parle calmement toutes les deux. Tu ne peux pas rester enfermée toute la semaine sans rien me dire.</div>
+          `
+        },
+        lucas: {
+          name: 'Lucas (2nde B)',
+          content: `
+            <div class="bubble bubble-in">Salut Léa, ça va ? On ne t'a pas vue depuis mardi.</div>
+            <div class="bubble bubble-in">Tout le monde en parle sur le groupe de classe à cause de la publication de @confessions_vh... C'est vraiment minable ce qu'ils font. Réponds-moi juste pour me dire si tu vas bien.</div>
+            ${evidenceBtnHTML('ev1', 'Collecter preuve : Propagation en classe')}
+          `
+        },
+        inconnu: {
+          name: '06 48 92 71 09',
+          content: `
+            <div class="bubble bubble-deleted">🗑️ [Message supprimé — Récupérable dans la Corbeille]</div>
+            <div class="bubble bubble-in">On sait que tu as écrit au CPE hier. Ne t'amuse pas à faire des histoires, sinon on publie le reste des captures que Chloé a gardées. Tu as bien compris ?</div>
+            <div class="bubble bubble-deleted">🗑️ [Message supprimé — Récupérable dans la Corbeille]</div>
+            ${evidenceBtnHTML('ev2', 'Collecter preuve : Intimidation & menaces')}
+          `
+        },
+        chloe: {
+          name: 'Chloé',
+          content: `
+            <div class="bubble bubble-out">Attends, c'est sérieux ? Tu as vraiment enregistré mon vocal pour le faire écouter aux autres ?</div>
+            <div class="bubble bubble-in">Arrête d'en faire tout un drame, c'était juste pour rire. Tu prends toujours tout mal.</div>
+            <div class="bubble bubble-out">Ce n'était pas drôle du tout Chloé. Laisse tomber, ne me parle plus.</div>
+            <div class="bubble bubble-in">Très bien, reste seule dans ton coin si tu préfères jouer la victime.</div>
+          `
+        }
+      };
+      const c = chats[id];
+      return `
+        <div class="app-header">
+          <h2>${c.name}</h2>
+          <button class="back-link" onclick="navigate('messages',{},false)">◀ Messages</button>
+        </div>
+        <div class="app-body">${c.content}</div>
+      `;
+    }
+
+    function renderPhotoDetail(id) {
+      const photos = {
+        diplome: {
+          title: '🎨 Concours BD',
+          bg: 'linear-gradient(135deg,#854d0e,#ca8a04)',
+          icon: '🏆',
+          text: '<strong>Prix d\'illustration — Festival Jeunes Talents</strong><br>Lauréate : Léa Moreau<br>Édition : <strong style="color:#fde047; font-size:1.1rem;">2024</strong>'
+        },
+        groupe: {
+          title: '🧑‍🤝‍🧑 Sortie Octobre',
+          bg: 'linear-gradient(135deg,#0f766e,#115e59)',
+          icon: '🥤',
+          text: 'Photo prise au café après les cours en octobre avec Lucas et Chloé, avant leur dispute.'
+        },
+        sondage: {
+          title: '📱 Capture floue',
+          bg: 'linear-gradient(135deg,#881337,#4c0519)',
+          icon: '📊',
+          text: 'Capture mal cadrée d\'une story : <em>« Pour ou contre exclure les menteuses du groupe ? »</em>. Le compte complet est visible sur PulseGram.'
+        }
+      };
+      const p = photos[id];
+      return `
+        <div class="app-header">
+          <h2>${p.title}</h2>
+          <button class="back-link" onclick="navigate('gallery',{},false)">◀ Galerie</button>
+        </div>
+        <div class="app-body">
+          <div style="background:${p.bg}; border-radius:12px; padding:36px; text-align:center; font-size:3.5rem;">${p.icon}</div>
+          <div class="card-item" style="cursor:default; font-size:0.86rem; line-height:1.5;">${p.text}</div>
+        </div>
+      `;
+    }
+
+    function renderPulseGram(tab) {
+      return `
+        <div class="app-header">
+          <h2>📸 PulseGram</h2>
+          <button class="back-link" onclick="goHomePhone()">Accueil</button>
+        </div>
+        <div class="app-body">
+          <div class="tab-pills">
+            <button class="tab-pill ${tab === 'feed' ? 'active' : ''}" onclick="navigate('pulsegram',{tab:'feed'},false)">Fil (@confessions_vh)</button>
+            <button class="tab-pill ${tab === 'dm' ? 'active' : ''}" onclick="navigate('pulsegram',{tab:'dm'},false)">Messages (DM)</button>
+          </div>
+
+          ${tab === 'feed' ? `
+            <div class="pg-post">
+              <div class="pg-header">🎭 @confessions_vh <span style="color:var(--text-muted); font-weight:400;">· Anonyme</span></div>
+              <div class="pg-img">
+                <div style="font-size:1.8rem; margin-bottom:6px;">🔊</div>
+                <div style="font-size:0.82rem; font-weight:700;">« Celle qui donne des leçons à tout le monde en classe, mais dès qu'elle est seule… écoutez jusqu'à la fin. #2ndeB »</div>
+                <div style="font-size:0.72rem; color:#fda4af; margin-top:6px;">❤️ 63 j'aime · 24 partages</div>
+              </div>
+              <div class="pg-comments">
+                <div><strong>@enzo.mrt :</strong> Incroyable le niveau. Hâte de voir sa tête lundi.</div>
+                <div><strong>@kamel_vh :</strong> Ça va trop loin là, supprimez ce truc.</div>
+                <div><strong>@confessions_vh :</strong> @kamel_vh Personne ne l'a forcée à enregistrer ça. Si elle n'assume pas, c'est son problème.</div>
+              </div>
+            </div>
+            ${evidenceBtnHTML('ev4', 'Collecter preuve : Exposition publique')}
+          ` : `
+            <div class="card-item" style="cursor:default;">
+              <div class="chat-row"><span class="chat-name">🎭 @confessions_vh</span><span class="chat-time">Mardi</span></div>
+              <div style="font-size:0.8rem; color:#fda4af; margin-top:4px;">
+                🗑️ <em>[Discussion supprimée — Copie locale conservée dans la Corbeille]</em>
+              </div>
+            </div>
+            <div class="card-item" style="cursor:default;">
+              <div class="chat-row"><span class="chat-name">lucas_2b</span><span class="chat-time">Hier</span></div>
+              <div style="font-size:0.8rem; color:#cbd5e1; margin-top:4px;">
+                J'ai signalé la publication sur l'application mais PulseGram ne l'a pas encore retirée. Fais des captures d'écran de tout avant qu'ils ne suppriment le compte.
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function renderTrash() {
+      const f = state.restoredFiles;
+      return `
+        <div class="app-header">
+          <h2>🗑️ Corbeille (3)</h2>
+          <button class="back-link" onclick="goHomePhone()">Accueil</button>
+        </div>
+        <div class="app-body">
+          <div style="font-size:0.78rem; color:var(--text-muted);">Éléments supprimés récemment. Cliquez pour restaurer :</div>
+
+          <div class="card-item" style="cursor:default;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <strong style="font-size:0.84rem;">📩 SMS supprimé (06 48 92 71 09)</strong>
+              ${f.f1 ? '' : `<button class="btn btn-primary" style="padding:4px 8px; font-size:0.75rem;" onclick="restoreFile('f1')">Restaurer</button>`}
+            </div>
+            ${f.f1
+              ? `<p style="font-size:0.8rem; color:#cbd5e1;">« De toute façon personne ne te croira si tu vas te plaindre à la principale. Tu ferais mieux de rester chez toi. »</p>`
+              : `<p style="font-size:0.78rem; color:var(--text-muted); font-style:italic;">Contenu masqué...</p>`}
+          </div>
+
+          <div class="card-item" style="cursor:default;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <strong style="font-size:0.84rem;">💬 DM PulseGram (@confessions_vh)</strong>
+              ${f.f2 ? '' : `<button class="btn btn-primary" style="padding:4px 8px; font-size:0.75rem;" onclick="restoreFile('f2')">Restaurer</button>`}
+            </div>
+            ${f.f2
+              ? `<p style="font-size:0.8rem; color:#fda4af; margin-bottom:6px;">« Tu veux qu'on retire le vocal ? Alors arrête d'aller te plaindre aux profs, sinon demain on met tes photos en story à la une. »</p>${evidenceBtnHTML('ev5', 'Collecter preuve : Chantage à la réputation')}`
+              : `<p style="font-size:0.78rem; color:var(--text-muted); font-style:italic;">Contenu masqué...</p>`}
+          </div>
+
+          <div class="card-item" style="cursor:default;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <strong style="font-size:0.84rem;">📝 Brouillon Note supprimé</strong>
+              ${f.f3 ? '' : `<button class="btn btn-primary" style="padding:4px 8px; font-size:0.75rem;" onclick="restoreFile('f3')">Restaurer</button>`}
+            </div>
+            ${f.f3
+              ? `<p style="font-size:0.8rem; color:#6ee7b7;">« Dans le bus ce matin, j'ai mis mon <strong style="text-decoration:underline;">casque</strong> à fond pour ne plus entendre les gens parler derrière moi. Je n'arrive même plus à les regarder. »</p>`
+              : `<p style="font-size:0.78rem; color:var(--text-muted); font-style:italic;">Contenu masqué...</p>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function restoreFile(key) {
+      state.restoredFiles[key] = true;
+      showToast('♻️ Fichier restauré');
+      renderPhone();
+    }
+
+    function openJournalPrompt() {
+      if (state.unlockedJournal) {
+        navigate('journal');
+        return;
+      }
+      const container = document.getElementById('phone-content');
+      container.innerHTML = `
+        <div class="app-header">
+          <h2>🔒 Note privée</h2>
+          <button class="back-link" onclick="navigate('notes',{},false)">◀ Notes</button>
+        </div>
+        <div class="app-body" style="justify-content:center; padding:24px;">
+          <div style="text-align:center; font-size:2.5rem; margin-bottom:8px;">🔐</div>
+          <h3 style="text-align:center; margin-bottom:6px;">Entrez le mot de passe</h3>
+          <p style="text-align:center; font-size:0.8rem; color:var(--text-muted);">Indice : « Ce que je mets sur mes oreilles dans le bus... » (1 mot)</p>
+          <input type="text" id="journal-pwd" class="input-password" placeholder="Mot de passe..." onkeydown="if(event.key==='Enter') checkJournalPwd()">
+          <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="checkJournalPwd()">Déverrouiller</button>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('journal-pwd')?.focus(), 50);
+    }
+
+    function checkJournalPwd() {
+      const val = (document.getElementById('journal-pwd')?.value || '').trim().toLowerCase();
+      if (val === 'casque') {
+        state.unlockedJournal = true;
+        showToast('🔓 Note privée déverrouillée');
+        navigate('journal', {}, false);
+      } else {
+        showToast('❌ Mot de passe incorrect (Regardez dans la Corbeille)');
+      }
+    }
+
+    // ================= MODALS (HINTS & RESOLVE) =================
+    function openHintModal() {
+      const c = document.getElementById('hints-container');
+      c.innerHTML = HINTS.map((h, i) => `
+        <div style="background:rgba(15,23,42,0.7); border:1px solid var(--panel-border); border-radius:10px; padding:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:0.9rem;">${h.title}</strong>
+            <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="this.style.display='none'; document.getElementById('hint-txt-${i}').style.display='block';">Révéler</button>
+          </div>
+          <p id="hint-txt-${i}" style="display:none; margin-top:8px; font-size:0.85rem; color:#7dd3fc; line-height:1.45;">${h.text}</p>
+        </div>
+      `).join('');
+      document.getElementById('hint-modal').classList.add('open');
+    }
+
+    function openResolveModal() {
+      const box = document.getElementById('resolve-box');
+      box.innerHTML = `
+        <h2>⚖️ Bilan de l'enquête</h2>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:16px;">
+          Vous avez réuni les 6 preuves. Validez vos conclusions pour clore le dossier et permettre aux adultes d'intervenir efficacement.
+        </p>
+
+        <div class="quiz-group">
+          <label>1. Qui est impliqué dans la diffusion sur @confessions_vh ?</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="lucas"> Lucas et Kamel</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="chloe_enzo"> Chloé (qui a transmis le vocal privé) et Enzo (qui le diffuse)</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="exterieur"> Un inconnu extérieur au lycée</label>
+        </div>
+
+        <div class="quiz-group">
+          <label>2. Qu'est-ce qui a déclenché cette situation ?</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="trahison"> Chloé a diffusé un vocal privé sans accord ; quand Léa a coupé les ponts, la situation a dégénéré en représailles publiques</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="notes"> Léa a refusé de donner les réponses d'un devoir surveillé</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="absence"> Léa a manqué les cours sans raison et les autres se sont inquiétés</label>
+        </div>
+
+        <div class="quiz-group">
+          <label>3. Quel réflexe faut-il avoir face à un tel cas (victime ou témoin) ?</label>
+          <label class="quiz-option"><input type="radio" name="q3" value="effacer"> Supprimer tous les messages et bloquer les comptes sans rien garder</label>
+          <label class="quiz-option"><input type="radio" name="q3" value="repondre"> Publier un autre post anonyme pour se défendre</label>
+          <label class="quiz-option"><input type="radio" name="q3" value="alerte"> Conserver les captures d'écran, en parler à un adulte de confiance (parents, CPE) et appeler le 3018</label>
+        </div>
+
+        <div id="quiz-error" style="color:var(--danger); font-size:0.85rem; margin-bottom:10px; display:none;">
+          Une ou plusieurs réponses ne correspondent pas aux éléments trouvés. Vérifiez vos preuves !
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button class="btn btn-outline" onclick="closeModal('resolve-modal')">Annuler</button>
+          <button class="btn btn-primary" onclick="submitResolution()">Valider le dossier</button>
+        </div>
+      `;
+      document.getElementById('resolve-modal').classList.add('open');
+    }
+
+    function submitResolution() {
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+      if (q1 === 'chloe_enzo' && q2 === 'trahison' && q3 === 'alerte') {
+        state.finished = true;
+        const timeStr = document.getElementById('timer').textContent;
+        document.getElementById('resolve-box').innerHTML = `
+          <div style="text-align:center; font-size:3rem; margin-bottom:6px;">✅</div>
+          <h2 style="text-align:center; color:var(--success);">Dossier complet — Résolu en ${timeStr}</h2>
+          <p style="font-size:0.92rem; line-height:1.55; margin-bottom:14px;">
+            Avec les captures restaurées, la preuve de l'origine du vocal et les SMS d'intimidation, la direction du lycée et les parents de Léa ont enfin des éléments concrets pour agir :
+            le compte <strong>@confessions_vh</strong> peut être signalé pour retrait rapide, les auteurs sont identifiés (<strong>Chloé</strong> et <strong>Enzo</strong>) et Léa n'a plus à porter cela seule.
+          </p>
+
+          <div class="help-box">
+            <h3>📞 À retenir dans la vraie vie</h3>
+            <p style="font-size:0.86rem; line-height:1.5;">
+              Même quand les auteurs prétendent « plaisanter », diffuser un contenu privé sans consentement, humilier quelqu'un en ligne et exercer des pressions pour le réduire au silence constitue du <strong>cyberharcèlement</strong> (puni par la loi).
+              <br><br>
+              • <strong>Ne supprimez jamais les preuves :</strong> faites des captures d'écran (avec dates, pseudonymes et liens) avant de bloquer.
+              <br>• <strong>3018 :</strong> numéro national gratuit, anonyme et confidentiel (7j/7 de 9h à 23h, ou via l'application 3018 / <em>3018.fr</em>). Ils peuvent faire supprimer des comptes ou publications en quelques heures.
+              <br>• <strong>Témoins :</strong> ne pas liker ni relayer, soutenir la personne en privé (comme Lucas) et prévenir un adulte change tout.
+            </p>
+          </div>
+
+          <div style="margin-top:18px; display:flex; justify-content:center; gap:12px;">
+            <button class="btn btn-outline" onclick="closeModal('resolve-modal')">Revoir le téléphone</button>
+            <button class="btn btn-primary" onclick="location.reload()">🔄 Recommencer</button>
+          </div>
+        `;
+      } else {
+        document.getElementById('quiz-error').style.display = 'block';
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // Init
+    renderEvidenceBoard();
+    renderPhone();
+  </script>
+</body>
+</html>
