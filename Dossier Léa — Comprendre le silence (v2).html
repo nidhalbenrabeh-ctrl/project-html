@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Dossier Léa — Comprendre le silence</title>
+<style>
+:root{--bg:#eef2f7;--pn:#fff;--bd:#c5d0de;--tx:#0f172a;--mu:#475569;--ac:#0369a1;--ok:#047857;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b1120;--pn:#131c31;--bd:#253352;--tx:#e2e8f0;--mu:#94a3b8;--ac:#38bdf8;--ok:#34d399}}
+:root[data-theme=dark]{--bg:#0b1120;--pn:#131c31;--bd:#253352;--tx:#e2e8f0;--mu:#94a3b8;--ac:#38bdf8;--ok:#34d399}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+body{background:var(--bg);color:var(--tx);min-height:100vh}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--pn)}
+h1{font-size:1rem}.hr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{border:1px solid var(--bd);border-radius:99px;padding:4px 10px;font-size:.82rem;font-weight:600}
+.btn{border:0;border-radius:8px;padding:8px 12px;font-weight:600;font-size:.85rem;cursor:pointer;background:var(--ac);color:var(--bg)}
+.btn.o{background:0;border:1px solid var(--bd);color:var(--tx)}.btn:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+.tabs{display:flex;gap:6px;padding:10px 14px 0}.tabs .btn{flex:1}
+main{max-width:1100px;margin:0 auto;padding:12px 14px;display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.hide{display:none}
+@media(min-width:900px){main{grid-template-columns:380px minmax(0,1fr);align-items:start}.tabs{display:none}.hide{display:block!important}}
+.phone{width:100%;max-width:360px;height:640px;margin:0 auto;background:#020617;border-radius:36px;padding:10px;box-shadow:0 18px 40px #0006}
+.scr{height:100%;background:linear-gradient(160deg,#0f172a,#1e1b4b);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;color:#e2e8f0}
+.sb{display:flex;justify-content:space-between;padding:8px 20px;font-size:.72rem;background:#0004}
+#pc{flex:1;overflow-y:auto}
+.nav{display:none;justify-content:space-around;padding:4px;background:#020617d9;border-top:1px solid #fff1}
+.nav button{background:0;border:0;color:#94a3b8;font-size:1.05rem;padding:6px 26px;cursor:pointer}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:14px 14px 6px}
+.lk{background:0;border:0;color:#38bdf8;cursor:pointer;font-size:.8rem}
+.bd{padding:6px 14px 18px;display:flex;flex-direction:column;gap:10px}
+.c{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:10px 12px;font-size:.84rem;line-height:1.45;cursor:pointer}
+.c small,.bd>small{color:#94a3b8;display:block;font-size:.76rem}.r{display:flex;justify-content:space-between;gap:8px}
+.b{max-width:86%;padding:8px 11px;border-radius:14px;font-size:.82rem;line-height:1.4}
+.i{background:#334155;align-self:flex-start}.o{background:#0369a1;align-self:flex-end}
+.x{align-self:center;font-style:italic;color:#fda4af;border:1px dashed #fda4af66}
+.got{color:#6ee7b7;font-size:.8rem;font-weight:600}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 8px;padding:10px 18px}
+.ap{text-align:center;font-size:.72rem;cursor:pointer}
+.ic{width:56px;height:56px;margin:0 auto 4px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;position:relative}
+.ic i{position:absolute;top:-4px;right:-4px;font-size:.6rem;background:#0f172a;border:1px solid #f59e0b;border-radius:50%;width:19px;height:19px;display:grid;place-items:center;font-style:normal}
+.hint{font-size:.76rem;background:#38bdf81f;border:1px solid #38bdf840;border-radius:8px;padding:6px 10px;color:#cbd5e1;display:inline-block}
+.dots{display:flex;gap:14px;justify-content:center;margin:12px 0}.dots i{width:13px;height:13px;border-radius:50%;border:2px solid #94a3b8}.dots i.f{background:#38bdf8;border-color:#38bdf8}
+.kp{display:grid;grid-template-columns:repeat(3,58px);gap:10px;justify-content:center}
+.kp button{height:58px;border-radius:50%;border:1px solid #fff2;background:#fff1;color:#fff;font-size:1.25rem;cursor:pointer}
+@keyframes sh{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}.sh{animation:sh .35s}
+input[type=text]{width:100%;padding:9px;margin:8px 0;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#fff;font-size:.9rem}
+.tp{display:flex;gap:6px}.tp button{flex:1;padding:6px;border-radius:8px;border:1px solid #475569;background:0;color:#cbd5e1;font-size:.76rem;cursor:pointer}.tp .on{background:#38bdf8;color:#0f172a;border-color:#38bdf8}
+.pn{background:var(--pn);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:14px}
+.pn h2{font-size:.95rem;margin-bottom:8px}.pn p,.pn li{font-size:.88rem;line-height:1.55;color:var(--mu)}.pn p+p{margin-top:8px}
+.lg{display:grid;gap:8px}.lg div{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;font-size:.84rem;line-height:1.45}.lg b{display:block}
+.ev{border:1px dashed var(--bd);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.84rem;color:var(--mu)}.ev.on{border:1px solid var(--ok);color:var(--tx)}
+.md{position:fixed;inset:0;background:#000b;display:none;justify-content:center;align-items:flex-start;padding:20px 12px;overflow:auto;z-index:9}.md.on{display:flex}
+.mb{background:var(--pn);border:1px solid var(--bd);border-radius:16px;padding:18px;max-width:560px;width:100%}
+.mb h2{margin-bottom:10px;font-size:1.1rem}.mb p{font-size:.9rem;line-height:1.55;margin-bottom:10px}
+.q{margin-bottom:14px}.q b{display:block;font-size:.9rem;margin-bottom:6px}.q label{display:block;border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:5px;font-size:.85rem;cursor:pointer}
+.nt{font-size:.8rem!important;color:var(--mu)}
+#toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:.85rem;opacity:0;transition:.25s;pointer-events:none;z-index:20;max-width:92%;text-align:center}#toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><h1>🔎 Dossier Léa — Comprendre le silence</h1>
+<div class="hr"><span class="pill">⏱ <span id="tm">00:00</span></span><span class="pill">🔍 <span id="cn">0</span>/8</span>
+<button class="btn o" onclick="hint()">💡 Indices</button><button class="btn" id="rb" disabled onclick="resolve()">⚖️ Clore le dossier</button></div></header>
+<div class="tabs"><button class="btn" id="t1" onclick="tab(1)">📱 Téléphone</button><button class="btn o" id="t2" onclick="tab(2)">📁 Dossier</button></div>
+<main><section id="ph"><div class="phone"><div class="scr"><div class="sb"><span>14:22</span><span>4G · 18 %</span></div><div id="pc"></div>
+<div class="nav" id="nv"><button title="Retour" onclick="back()">◀</button><button title="Accueil" onclick="home()">⬤</button></div></div></div></section>
+<section id="bd" class="hide"></section></main>
+<div id="toast"></div>
+<div class="md on" id="im"><div class="mb"><h2>Jeudi 19 novembre, 14 h 22</h2>
+<p>Léa Moreau, 15 ans, Seconde B au lycée Victor-Hugo, n’est pas revenue en cours depuis quatre jours. « Des migraines », répète-t-elle à ses parents, sans jamais dire pourquoi elle ne veut plus passer le portail.</p>
+<p>Ce midi, sa mère a déposé à la vie scolaire le téléphone de Léa, retrouvé éteint au fond de son sac, avec son accord écrit pour que l’établissement l’examine. Mme Rousseau, la CPE, vous le confie. Des applis sont verrouillées, des messages ont été effacés.</p>
+<p>Votre mission : réunir <b>8 preuves</b> exploitables, comprendre ce qui est arrivé à Léa, puis décider comment la soutenir.</p>
+<p class="nt">Ce jeu aborde le cyberharcèlement. Si cela te touche de près, le 3018 est gratuit, anonyme et confidentiel (7j/7, de 9 h à 23 h).</p>
+<button class="btn" onclick="start()">Commencer l’enquête</button></div></div>
+<div class="md" id="hm"><div class="mb"><h2>💡 Indices</h2><div id="hl"></div><button class="btn o" onclick="cm('hm')">Fermer</button></div></div>
+<div class="md" id="rm"><div class="mb" id="rbx"></div></div>
+<script>
+const g=i=>document.getElementById(i),cm=i=>g(i).classList.remove('on');
+const S={u:{},ev:new Set(),r:{},h:[],v:'lock',p:{},b:'',d:0,s:0,pin:'phone'};
+const E={ev1:['Le groupe en parle','Lucas confirme que la publication circule dans toute la 2nde B.'],
+ev2:['Menaces par SMS','Un numéro inconnu menace de publier d’autres captures si Léa en parle à la CPE.'],
+ev3:['Complicité Chloé et Enzo','Chloé transmet le vocal privé et demande à Enzo de le publier.'],
+ev4:['Exposition publique','@confessions_vh moque Léa devant tout le lycée, sans que personne n’ose répondre.'],
+ev5:['Chantage aux photos','Le compte menace de publier ses photos si elle se plaint aux profs.'],
+ev6:['L’élément déclencheur','Léa raconte la trahison de Chloé et la spirale qui a suivi.'],
+ev7:['Un appel à l’aide avorté','Le mail à la vie scolaire, écrit un dimanche soir, n’a jamais été envoyé.'],
+ev8:['Le numéro identifié','Les menaces anonymes viennent du numéro d’Enzo.']};
+const K={phone:['2306','Date d’adoption d’Oslo (JJMM)','Téléphone'],album:['2024','Année du prix, visible dans la Galerie','Album masqué'],pulse:['7109','4 derniers chiffres du numéro inconnu','PulseGram'],trash:['0412','Numéro de casier (4 chiffres)','Corbeille']};
+const HT=[['Déverrouiller le téléphone','Le casier contient la photo d’Oslo, son chat : « 23 juin ». Code : 2306.'],
+['Album masqué','Le mémo des Notes renvoie à l’année de son prix, visible dans la Galerie. Code : 2024.'],
+['PulseGram','Les 4 derniers chiffres du numéro inconnu qui lui a écrit lundi (Messages). Code : 7109.'],
+['Corbeille','Son numéro de casier est sur sa carte de lycéenne. Code : 0412.'],
+['Note privée','Restaurez le brouillon dans la Corbeille : l’objet qu’elle met sur ses oreilles dans le bus. Mot : casque.'],
+['Le numéro inconnu','Cherchez ce numéro dans les affaires du casier : une liste d’élèves le contient. C’est celui d’Enzo.'],
+['Il manque une preuve ?','Il y en a une dans Messages (×2), Album masqué, PulseGram, Corbeille, Notes et Mail.']];
+const LK=[['🐱 Photo d’Oslo','Au dos de la photo de son chat : « Oslo · 23 juin ».'],['🪪 Carte de lycéenne','Léa Moreau, Seconde B. Casier : <b style="display:inline">0412</b>.'],
+['📄 Feuille de groupe (SVT)','Le nom de Chloé est barré au stylo. Remarque du prof : « Passage individuel validé suite au changement de binôme ».'],
+['📋 Liste de la sortie du 14 octobre','Numéros des élèves : Lucas D., Chloé P., Kamel B., Enzo M. 06 48 92 71 09, Léa M.']];
+function toast(m){const t=g('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2800)}
+function go(v,p={},push=true){if(push)S.h.push([S.v,S.p]);S.v=v;S.p=p;draw()}
+function back(){const h=S.h.pop();if(h){S.v=h[0];S.p=h[1];draw()}}
+function home(){S.h=[];go('home',{},false)}
+function tab(n){g('ph').classList.toggle('hide',n==2);g('bd').classList.toggle('hide',n==1);g('t1').className='btn'+(n==1?'':' o');g('t2').className='btn'+(n==2?'':' o')}
+function start(){cm('im');setInterval(()=>{if(!S.d){S.s++;g('tm').textContent=String(S.s/60|0).padStart(2,'0')+':'+String(S.s%60).padStart(2,'0')}},1000)}
+function col(id){S.ev.add(id);toast(S.ev.size<8?'🔍 Preuve '+S.ev.size+'/8 : '+E[id][0]:'🎯 8/8 : vous pouvez clore le dossier');draw();board()}
+function board(){const n=S.ev.size;g('cn').textContent=n;g('t2').textContent='📁 Dossier ('+n+'/8)';g('rb').disabled=n<8;
+g('bd').innerHTML=`<div class="pn"><h2>📋 Ce que l’on sait</h2><p>Léa est absente depuis lundi. Elle ne dit rien, mais son téléphone, lui, a gardé des traces. Avancez application par application : chaque verrou se rouvre grâce à un détail de sa vie, souvent glissé dans ses affaires.</p></div>
+<div class="pn"><h2>🎒 Affaires récupérées dans son casier</h2><div class="lg">${LK.map(l=>`<div><b>${l[0]}</b>${l[1]}</div>`).join('')}</div></div>
+<div class="pn"><h2>📁 Preuves réunies (${n}/8)</h2>${Object.keys(E).map((k,i)=>S.ev.has(k)?`<div class="ev on"><b>${i+1}. ${E[k][0]}</b><br>${E[k][1]}</div>`:`<div class="ev">${i+1}. Preuve à trouver</div>`).join('')}</div>`}
+const hd=(t,b='home()',l='Accueil')=>`<div class="ah"><b>${t}</b><button class="lk" onclick="${b}">◀ ${l}</button></div>`;
+const bub=(t,c)=>`<div class="b ${c}">${t}</div>`;
+const evb=id=>S.ev.has(id)?`<div class="got">✔ Preuve collectée : ${E[id][0]}</div>`:`<button class="btn" onclick="col('${id}')">🔍 Collecter : ${E[id][0]}</button>`;
+function dots(){document.querySelectorAll('#dots i').forEach((d,i)=>d.className=i<S.b.length?'f':'')}
+function pin(t){S.pin=t;S.b='';go('pin')}
+function pk(n){if(S.b.length>3)return;S.b+=n;dots();if(S.b.length<4)return;
+setTimeout(()=>{const t=S.v=='lock'?'phone':S.pin;if(S.b==K[t][0]){S.b='';S.u[t]=1;toast('🔓 '+K[t][2]+' déverrouillé');t=='phone'?go('home',{},false):go(t=='pulse'?'pulse':t,{tab:'feed'},false)}
+else{const d=g('dots');d&&d.classList.add('sh');toast('❌ Code incorrect');setTimeout(()=>{S.b='';dots();const e=g('dots');e&&e.classList.remove('sh')},400)}},120)}
+function pad(t){const k=K[t];return `<div style="padding:20px;text-align:center">${t=='phone'?`<div style="font-size:2.6rem;font-weight:300">14:22</div><small style="color:#94a3b8">Jeudi 19 novembre</small>
+<div class="c" style="text-align:left;margin:12px 0;border-left:3px solid #f43f5e;cursor:default"><b>💬 Maman, il y a 1 h</b><br>Léa, la vie scolaire vient encore de m’appeler. Ce soir, on en parle vraiment.</div>`:`<div class="r"><button class="lk" onclick="back()">◀ Retour</button><span>🔒</span></div><h3 style="margin:10px 0">${k[2]}</h3>`}
+<div class="hint">Indice : ${k[1]}</div><div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+<div class="kp">${[1,2,3,4,5,6,7,8,9].map(n=>`<button onclick="pk(${n})">${n}</button>`).join('')}<button onclick="S.b='';dots()">C</button><button onclick="pk(0)">0</button><button onclick="S.b=S.b.slice(0,-1);dots()">⌫</button></div></div>`}
+const APPS=[['messages','💬','Messages','#16a34a'],['gallery','🖼️','Galerie','#db2777'],['notes','📝','Notes','#d97706'],['mail','✉️','Mail','#2563eb'],['pulse','📸','PulseGram','#7c3aed',1],['trash','🗑️','Corbeille','#475569',1],['browser','🌐','Navigateur','#0284c7']];
+const CH=[['maman','Maman','13:15','Léa, la vie scolaire vient encore de m’appeler…'],['lucas','Lucas (2nde B)','Hier','Tout le monde en parle sur le groupe de classe…'],['inconnu','06 48 92 71 09','Lundi','On sait que tu comptes aller voir la CPE…'],['chloe','Chloé','Ven.','Très bien, reste seule dans ton coin…']];
+const T={
+maman:()=>bub('Léa, je suis au travail, la vie scolaire vient encore de m’appeler pour ton absence. Ça fait quatre jours maintenant…','i')+bub('J’ai encore une migraine ce matin, désolée. Je suis restée couchée.','o')+bub('Ce soir, on en parle calmement, toutes les deux. Tu ne peux pas rester enfermée toute la semaine sans rien me dire.','i'),
+lucas:()=>bub('Salut Léa, ça va ? On ne t’a pas vue depuis lundi.','i')+bub('Tout le monde en parle sur le groupe de classe à cause de la publication de @confessions_vh… C’est minable, ce qu’ils font.','i')+bub('Je suis là si tu veux. Même juste pour parler d’autre chose.','i')+evb('ev1'),
+inconnu:()=>bub('🗑️ Message supprimé (récupérable dans la Corbeille)','x')+bub('On sait que tu comptes aller voir la CPE. Ne t’amuse pas à faire des histoires, sinon on publie le reste des captures que Chloé a gardées. Tu as bien compris ?','i')+bub('🗑️ Message supprimé (récupérable dans la Corbeille)','x')+evb('ev2')+
+(S.ev.has('ev8')?'<div class="got">✔ Numéro identifié : Enzo</div>':`<div class="c" style="cursor:default"><b>Qui se cache derrière ce numéro ?</b><small>Les affaires du casier contiennent peut-être la réponse.</small><input type="text" id="idn" placeholder="Prénom…" onkeydown="if(event.key=='Enter')idf()"><button class="btn" onclick="idf()">Identifier</button></div>`),
+chloe:()=>bub('Attends, c’est sérieux ? Tu as vraiment enregistré mon vocal pour le faire écouter aux autres ?','o')+bub('Arrête d’en faire tout un drame, c’était pour rire. Tu prends toujours tout mal.','i')+bub('Ce n’était pas drôle du tout, Chloé. Laisse tomber, ne me parle plus.','o')+bub('Très bien, reste seule dans ton coin si tu préfères jouer la victime.','i')};
+function idf(){const v=g('idn').value.trim().toLowerCase();v.includes('enzo')?col('ev8'):toast('❌ Ce n’est pas ça. Relisez les affaires du casier.')}
+const P={diplome:['🎨 Concours BD','🏆','<b>Prix d’illustration, Festival Jeunes Talents</b><br>Lauréate : Léa Moreau<br>Édition <b style="color:#fde047">2024</b>'],groupe:['🧑‍🤝‍🧑 Sortie d’octobre','🥤','Photo prise au café après les cours, avec Lucas et Chloé. Avant la dispute.'],sondage:['📱 Capture floue','📊','Capture d’une story : « Pour ou contre exclure les menteuses du groupe ? ». Le compte complet est sur PulseGram.']};
+const J=(t,b)=>hd(t,'back()','Retour');
+function trashItem(k,t,txt,extra=''){const f=S.r[k];return `<div class="c" style="cursor:default"><div class="r"><b>${t}</b>${f?'':`<button class="btn" style="padding:3px 8px" onclick="S.r.${k}=1;toast('♻️ Restauré');draw()">Restaurer</button>`}</div>${f?`<p style="margin-top:6px">${txt}</p>${extra}`:'<small style="font-style:italic">Contenu masqué…</small>'}</div>`}
+const V={
+lock:()=>pad('phone'),pin:()=>pad(S.pin),
+home:()=>`<div class="c" style="margin:14px 18px 6px;cursor:default"><small>Lycée Victor-Hugo, Seconde B</small><b>Téléphone de Léa</b><small style="color:#fda4af">3 messages non lus</small></div><div class="apps">${APPS.map(([v,i,n,c,l])=>{const lk=l&&!S.u[v];return `<div class="ap" onclick="${lk?`pin('${v}')`:v=='pulse'?`go('pulse',{tab:'feed'})`:`go('${v}')`}"><div class="ic" style="background:${c}">${i}${lk?'<i>🔒</i>':''}</div>${n}</div>`}).join('')}</div>`,
+messages:()=>hd('💬 Messages')+`<div class="bd">${CH.map(c=>`<div class="c" onclick="go('chat',{id:'${c[0]}'})"><div class="r"><b>${c[1]}</b><small>${c[2]}</small></div><small>${c[3]}</small></div>`).join('')}</div>`,
+chat:()=>hd(CH.find(c=>c[0]==S.p.id)[1],'back()','Messages')+`<div class="bd">${T[S.p.id]()}</div>`,
+gallery:()=>hd('🖼️ Galerie')+`<div class="bd"><div class="c" style="border-color:#f59e0b66" onclick="${S.u.album?"go('album')":"pin('album')"}"><b>${S.u.album?'🔓 Album masqué':'🔒 Masquées (protégé)'}</b><small>Captures enregistrées par Léa</small></div><small>Récents</small>${Object.keys(P).map(k=>`<div class="c" onclick="go('photo',{id:'${k}'})">${P[k][1]} ${P[k][0]}</div>`).join('')}</div>`,
+photo:()=>{const p=P[S.p.id];return hd(p[0],'back()','Galerie')+`<div class="bd"><div style="background:#334155;border-radius:12px;padding:30px;text-align:center;font-size:3rem">${p[1]}</div><div class="c" style="cursor:default">${p[2]}</div></div>`},
+album:()=>hd('🔓 Album masqué','back()','Galerie')+`<div class="bd"><div class="c" style="cursor:default"><small>Capture transmise par un contact : conversation Chloé / Enzo</small><div style="background:#0f172a;padding:10px;border-radius:8px;margin:8px 0"><b style="color:#f472b6">Chloé :</b> Tiens, voilà l’enregistrement où elle craque. Mets-le sur <b>@confessions_vh</b>, mais ne coupe pas le début, sinon on ne la reconnaîtra pas.<br><br><b style="color:#fbbf24">Enzo :</b> C’est bon, le montage est prêt. Je le publie samedi à 18 h, quand tout le monde est connecté.</div>${evb('ev3')}</div><div class="c" style="cursor:default"><small>Photo prise en classe</small>Aperçu sur l’écran d’Enzo : <i>PulseGram, @confessions_vh : 14 nouveaux commentaires</i></div></div>`,
+notes:()=>hd('📝 Notes')+`<div class="bd"><div class="c" style="cursor:default"><b>🔐 Mémo codes</b><br>• Album masqué : l’année de mon prix au concours (voir Galerie).<br>• PulseGram : les 4 derniers chiffres du numéro inconnu de lundi.<br>• Note privée : ce que je mets sur mes oreilles dans le bus (brouillon jeté à la Corbeille).</div><div class="c" style="cursor:default"><b>📚 Semaine du 16 nov.</b><br>Maths : DM pour vendredi<br>SVT : passer seule (validé)</div><div class="c" style="border-color:#f59e0b66" onclick="go(S.u.j?'journal':'jp')"><b>${S.u.j?'🔓':'🔒'} Note privée</b><small>Protégée par un mot de passe (1 mot)</small></div></div>`,
+jp:()=>hd('🔒 Note privée','back()','Notes')+`<div class="bd" style="padding:24px"><div style="text-align:center;font-size:2.5rem">🔐</div><p style="text-align:center;font-size:.82rem;color:#94a3b8">Indice : « Ce que je mets sur mes oreilles dans le bus » (1 mot)</p><input type="text" id="pw" placeholder="Mot de passe…" onkeydown="if(event.key=='Enter')cj()"><button class="btn" onclick="cj()">Déverrouiller</button></div>`,
+journal:()=>hd('🔓 Note privée','back()','Notes')+`<div class="bd"><div class="c" style="cursor:default;line-height:1.6"><small>Mardi, 23 h 40</small>Je n’en peux plus de faire semblant d’avoir mal au ventre, mais dès que je m’approche du portail j’ai la gorge nouée.<br><br>Tout est parti du jour où j’ai dit à <b>Chloé</b> que je ne voulais plus lui parler. Elle avait enregistré un vocal où je lui confiais quelque chose de personnel, et elle l’avait fait écouter. Au lieu de s’excuser, elle a tout retourné contre moi.<br><br>Samedi, <b>Enzo</b> et elle ont publié un montage de ce vocal sur <b>@confessions_vh</b>. Depuis, les regards et les moqueries ne s’arrêtent plus. Dimanche soir j’ai commencé un mail à la CPE, mais je n’ai pas osé l’envoyer. Lundi, des SMS d’un numéro inconnu m’ont dit de me taire. Je me sens piégée. Il n’y a que Lucas qui m’écrit encore.</div>${evb('ev6')}</div>`,
+mail:()=>hd('✉️ Mail')+`<div class="bd"><small>Brouillons (1)</small><div class="c" style="cursor:default"><b>À : vie-scolaire@lycee-victorhugo.fr</b><small>Dimanche 15 nov., 21 h 47 · jamais envoyé</small><p style="margin-top:8px;line-height:1.5"><b>Objet : Je ne sais pas à qui en parler</b><br>Bonjour Madame Rousseau, je ne sais pas comment dire ça. Quelqu’un a publié un enregistrement de moi sur un compte anonyme et depuis samedi tout le monde me regarde. Je voudrais juste que ça s’arrête, mais j’ai peur que ce soit pire si…</p></div>${evb('ev7')}<small>Boîte de réception : aucun message</small></div>`,
+pulse:()=>{const t=S.p.tab;return hd('📸 PulseGram')+`<div class="bd"><div class="tp"><button class="${t=='feed'?'on':''}" onclick="go('pulse',{tab:'feed'},false)">Fil @confessions_vh</button><button class="${t=='dm'?'on':''}" onclick="go('pulse',{tab:'dm'},false)">Messages</button></div>`+(t=='feed'?`<div class="c" style="cursor:default"><b>🎭 @confessions_vh</b> <small style="display:inline">anonyme</small><div style="background:#4c0519;border-radius:10px;padding:12px;margin:8px 0;text-align:center">🔊<br><b>« Celle qui donne des leçons à tout le monde, mais dès qu’elle est seule… écoutez jusqu’au bout. #2ndeB »</b><br><small style="color:#fda4af">63 j’aime · 24 partages</small></div><b>@enzo.mrt</b> Incroyable le niveau. Hâte de voir sa tête lundi.<br><b>@kamel_vh</b> Ça va trop loin, supprimez ça.<br><b>@confessions_vh</b> @kamel_vh Personne ne l’a forcée à enregistrer ça. Si elle n’assume pas, c’est son problème.</div>${evb('ev4')}`:`<div class="c" style="cursor:default"><div class="r"><b>🎭 @confessions_vh</b><small>Mardi</small></div><small style="color:#fda4af">🗑️ Discussion supprimée (copie dans la Corbeille)</small></div><div class="c" style="cursor:default"><div class="r"><b>lucas_2b</b><small>Hier</small></div>J’ai signalé la publication, mais PulseGram ne l’a pas encore retirée. Fais des captures de tout avant qu’ils suppriment le compte.</div>`)+'</div>'},
+trash:()=>hd('🗑️ Corbeille (3)')+`<div class="bd"><small>Éléments supprimés récemment</small>${trashItem('a','📩 SMS (06 48 92 71 09)','« De toute façon, personne ne te croira si tu vas te plaindre à la principale. Tu ferais mieux de rester chez toi. »')}${trashItem('b','💬 DM PulseGram (@confessions_vh)','« Tu veux qu’on retire le vocal ? Alors arrête d’aller te plaindre aux profs, sinon demain tes photos passent en story. »',evb('ev5'))}${trashItem('c','📝 Brouillon supprimé','« Dans le bus ce matin, j’ai mis mon <u>casque</u> à fond pour ne plus entendre les gens parler derrière moi. Je n’arrive même plus à les regarder. »')}</div>`,
+browser:()=>hd('🌐 Historique')+`<div class="bd"><small>Recherches récentes</small><div class="c" style="cursor:default">🔍 « changer de lycée en cours d’année dossier »<small>il y a 3 jours</small></div><div class="c" style="cursor:default">🔍 « signaler un compte anonyme réseau social »<small>il y a 2 jours</small></div><div class="c" style="cursor:default;border-color:#38bdf866">🔍 « 3018 harcèlement scolaire anonyme »<br><small style="color:#cbd5e1">3018.fr : numéro national gratuit, anonyme et confidentiel (7j/7, 9 h à 23 h) pour les jeunes victimes ou témoins. Il permet aussi de demander le retrait rapide de contenus.</small></div></div>`};
+function cj(){if(g('pw').value.trim().toLowerCase()=='casque'){S.u.j=1;toast('🔓 Note privée déverrouillée');go('journal',{},false)}else toast('❌ Mot de passe incorrect (regardez dans la Corbeille)')}
+function draw(){g('nv').style.display=S.u.phone?'flex':'none';g('pc').innerHTML=V[S.v]();g('pc').scrollTop=0}
+function hint(){g('hl').innerHTML=HT.map((h,i)=>`<div class="q"><div class="r"><b>${i+1}. ${h[0]}</b><button class="btn o" onclick="this.remove();g('h${i}').style.display='block'">Révéler</button></div><p id="h${i}" style="display:none;color:var(--ac);margin:6px 0 0">${h[1]}</p></div>`).join('');g('hm').classList.add('on')}
+const QZ=[['Qui est derrière la diffusion et les menaces ?',[['Lucas et Kamel'],['Chloé a transmis le vocal ; Enzo l’a monté, publié, et a envoyé les SMS anonymes',1],['Un inconnu extérieur au lycée']]],
+['Qu’est-ce qui a fait basculer la situation ?',[['Chloé a diffusé un vocal privé ; quand Léa a coupé les ponts, elle est devenue la cible de représailles',1],['Léa a refusé de donner les réponses d’un devoir'],['Léa a séché les cours et les autres se sont inquiétés']]],
+['Le compte répond : « Personne ne l’a forcée à enregistrer ça. » Que penser de cet argument ?',[['Il n’a pas complètement tort : elle aurait dû faire attention'],['Se confier en privé n’autorise personne à diffuser : la faute revient à celui qui expose',1],['Peu importe, seuls les « j’aime » comptent']]],
+['Quel réflexe adopter, comme victime ou comme témoin ?',[['Tout supprimer et bloquer sans rien garder'],['Répondre par un autre post anonyme'],['Garder les captures, en parler à un adulte de confiance et appeler le 3018',1]]],
+['Lucas hésite sur ce qu’il doit écrire à Léa. Quel est le meilleur message ?',[['Ignore-les, ils finiront par se lasser.'],['Pourquoi tu n’as rien dit plus tôt ?'],['Ce n’est pas ta faute et tu n’as pas à gérer ça seule. Si tu veux, je viens avec toi voir la CPE.',1]]]];
+function resolve(){g('rbx').innerHTML=`<h2>⚖️ Bilan de l’enquête</h2><p>Vous avez réuni les 8 preuves. Dernière étape : vos conclusions, puis la façon de soutenir Léa.</p>${QZ.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${o[0]}</label>`).join('')}</div>`).join('')}<p id="qe" style="color:#e11d48;display:none"></p><div class="r"><button class="btn o" onclick="cm('rm')">Annuler</button><button class="btn" onclick="sub()">Valider le dossier</button></div>`;g('rm').classList.add('on')}
+function sub(){const bad=[];QZ.forEach((q,i)=>{const v=document.querySelector(`input[name=q${i}]:checked`);if(!v||!q[1][v.value][1])bad.push(i+1)});
+if(bad.length){const e=g('qe');e.style.display='block';e.textContent='À revoir : question'+(bad.length>1?'s ':' ')+bad.join(', ')+'. Relisez les preuves du dossier.';return}
+S.d=1;g('rbx').innerHTML=`<h2>✅ Dossier transmis, résolu en ${g('tm').textContent}</h2>
+<p>Le lendemain, Mme Rousseau et les parents de Léa rencontrent la direction, captures à l’appui. Le 3018 obtient le retrait de @confessions_vh en moins de 48 heures. Chloé et Enzo sont convoqués avec leurs familles et une procédure disciplinaire s’ouvre.</p>
+<p>Léa revient en cours le lundi suivant, Lucas l’attend devant le portail. Tout n’est pas réglé : elle verra la psychologue scolaire et il y aura des jours difficiles. Mais elle n’est plus seule avec ça.</p>
+<div class="pn"><h2>À retenir</h2><ul style="padding-left:18px"><li>Diffuser un contenu privé, humilier en ligne et menacer pour faire taire est du cyberharcèlement, puni par la loi, même « pour rire ».</li><li>Ne supprimez rien : faites des captures (date, pseudo, lien) avant de bloquer.</li><li>3018 : gratuit, anonyme, confidentiel, 7j/7 de 9 h à 23 h. Pour le harcèlement à l’école, le 3020 existe aussi.</li><li>Témoins : ne likez pas, ne relayez pas, écrivez à la personne en privé et prévenez un adulte.</li></ul></div>
+<div class="r"><button class="btn o" onclick="cm('rm')">Revoir le téléphone</button><button class="btn" onclick="location.reload()">🔄 Recommencer</button></div>`}
+board();draw();
+</script></body></html>
